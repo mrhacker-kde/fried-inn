@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu</title>
+    <style>
+        body {
+            margin: 0;
+            margin-left: 220px;
+            font-family: Arial, sans-serif;
+        }
+
+        .top-bar {
+            position: fixed;
+            top: 0;
+            left: 200px;
+            right: 0;
+            height: 60px;
+            background: linear-gradient(to right,#ffffff 10%, #ffcccc); /* Faded red gradient */
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 40px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            z-index: 100;
+        }
+        .top-bar .left-info {
+            display: flex;
+            align-items: center;
+        }
+        .top-bar .balance,
+        .top-bar .coins {
+            margin-right: 30px;
+            font-size: 18px;
+            font-weight: bold;
+            color:#2b3d5b;
+        }
+        .top-bar .auth-links a {
+            margin-left: 25px;
+            font-size: 16px;
+            color: #b30000;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.2s;
+        }
+        .top-bar .auth-links a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+        .errormsg {
+            display: none;
+            color: red;
+            font-size: 18px;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .errormsg h2 {
+            margin: 0;
+        }
+        .errormsg p {
+            margin: 10px 0;
+        }
+        .errormsg a {
+            color: #b30000;
+            text-decoration: underline;
+        }
+        .errormsg a:hover {
+            color: #ff0000;
+        }
+
+
+
+        nav {
+            width: 200px;
+            height: 100vh;
+            background: linear-gradient(to bottom, #ffffff, red); /* Red to white gradient */
+            position: fixed;
+            top: 0;
+            left: 0;
+            padding-top: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+        nav img {
+            width: 100%; /* Make logo responsive */
+            height: auto; /* Maintain aspect ratio */
+            margin-bottom: 20px; /* Space below the logo */
+            margin-top: 0;
+        }
+
+        nav a {
+            padding: 15px 20px;
+            text-decoration: none;
+            color: white;
+            display: block;
+            transition: background-color 0.3s;
+            font-family: arial bold; /* Use Impact font */
+            font-size: 18px; /* Increase font size */
+        }
+
+        nav a:hover {
+            background-color: #575757;
+        }
+
+        footer {
+            margin-top: auto; /* Push footer to the bottom of the nav */
+            padding: 20px;
+            background-color: #444; /* Darker background for footer */
+            color: white; /* White text color */
+            text-align: center; /* Center text */
+        }
+
+        /* Add space for top bar */
+        .content {
+            margin-top: 70px;
+        }
+
+        .item-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+        }
+
+    </style>
+</head>
+<body>
+    <nav>
+        <img src="/logo.png" alt="Logo">
+        <a href="" class="l11">Home</a>
+        <a href="" class="l21">Baked Breads</a>
+        <a href="" class="l31">Fries and Meat</a>
+        <a href="" class="l41">Drinks</a>
+        <a href="" class="l51">Desserts</a>
+        <a href="" class="l61">My Orders</a>
+        <a href="" id="info" class="l71">Accounts</a>
+        <footer>
+            <p>Contact us: info@example.com</p>
+            <p>Phone: (123) 456-7890</p>
+        </footer>
+    </nav>
+    <div class="top-bar">
+        <div class="left-info">
+            <% if (user && user.email) { %>
+                <div class="balance">Balance: $<%= balance || '0.00' %></div>
+                <div class="coins">Coins: <%= coins || '0' %></div>
+            <% } %>
+        </div>
+        <div class="auth-links">
+            <% if (user && user.email) { %>
+                <a href="/logout">Logout</a>
+            <% } else { %>
+                <a href="/signup">Sign Up</a>
+                <a href="/login">Login</a>
+            <% } %>
+        </div>
+    </div>
+    <div class="content">
+        <div id="l12-items" class="item-container" style="display: none;">
+            <!-- Items for Baked Breads (l12) go here -->
+        </div>
+        <div id="l22-items" class="item-container" style="display: none;">
+            <!-- Items for Fries and Meat (l22) go here -->
+        </div>
+        <div id="l32-items" class="item-container" style="display: none;">
+            <!-- Items for Drinks (l32) go here -->
+        </div>
+        <div id="l42-items" class="item-container" style="display: none;">
+            <!-- Items for Desserts (l42) go here -->
+        </div>
+        <div id="l52-items" class="item-container" style="display: none;">
+            <!-- Items for My Orders (l52) go here -->
+        </div>
+        
+        <div class="content">
+        <% if (user && user.email) { %>
+            <div id="l62-items" class="item-container">
+                <%- include('accounts/infor-update', { user }) %>
+            </div>
+        <% } else { %>
+            <h1>Please Login</h1>
+            <p>You need to login to access this content.</p>
+            <a href="/login" class="toggle-link">Login</a>
+        <% } %>
+    </div>
+        <div id="erromsg" class="errormsg">
+            <h2>Please log in to view your account information.</h2>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const Link = document.getElementById('info');
+            const contentDiv = document.getElementById('l62-items');     
+            let isVisible = true;
+            
+            Link.addEventListener('click', function(e) {
+                e.preventDefault();
+
+                if (isVisible, user && user.email) {
+                    contentDiv.style.display = 'block';
+                    contentDiv.innerHTML = `<h2>Welcome, ${user.fullname}</h2>`;
+                } else {
+                    contentDiv.style.display = 'none';
+                    contentDiv.innerHTML = `<h2>Please log in to view your account information.</h2>`;
+                }
+            });
+        });
+    </script>
+</body>
+</html>

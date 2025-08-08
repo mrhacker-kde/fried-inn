@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign Up</title>
+    <style>
+        body {
+            background: #fff6f6;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .signup-container {
+            max-width: 370px;
+            margin: 80px auto;
+            padding: 30px 25px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(255,0,0,0.08);
+            text-align: center;
+        }
+        .signup-logo {
+            width: 100px;
+            margin-bottom: 20px;
+        }
+        .signup-title {
+            font-size: 24px;
+            color: #b30000;
+            margin-bottom: 25px;
+            font-weight: bold;
+        }
+        .signup-form input[type="text"],
+        .signup-form input[type="email"],
+        .signup-form input[type="tel"],
+        .signup-form input[type="password"] {
+            width: 90%;
+            padding: 10px;
+            margin-bottom: 18px;
+            border: 1px solid #ffcccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .signup-form button {
+            width: 95%;
+            padding: 10px;
+            background: linear-gradient(to right, #ff4d4d, #ffcccc);
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .signup-form button:hover {
+            background: linear-gradient(to right, #ff0000, #ffcccc);
+        }
+        .login-link {
+            margin-top: 15px;
+            font-size: 15px;
+        }
+        .login-link a {
+            color: #b30000;
+            text-decoration: none;
+        }
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="signup-container">
+        <img src="/logo.png" alt="Logo" class="signup-logo">
+        <div class="signup-title">Sign Up</div>
+
+        <form class="signup-form" method="POST" action="/signup" autocomplete="off">
+            <input type="text" name="fullname" placeholder="Full Name" required>
+            <input type="text" name="address" placeholder="Address" required>
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="text" name="phone" placeholder="Phone Number" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <input type="password" name="repassword" placeholder="Re-enter Password" required>
+            <button type="submit">Create Account</button>
+        </form>
+        <div class="login-link">
+            Already have an account? <a href="/login">Login</a>
+        </div>
+    </div>
+</body>
+</html>

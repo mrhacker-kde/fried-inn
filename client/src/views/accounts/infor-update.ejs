@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Account Information</title>
+    <style>
+        .account-container {
+            max-width: 420px;
+            margin: 40px auto;
+            padding: 30px 25px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(255,0,0,0.08);
+            text-align: left;
+        }
+        .account-container h2 {
+            color: #b30000;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+        .account-form {
+            margin-bottom: 20px;
+        }
+        .account-form label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: bold;
+            color: #b30000;
+        }
+        .account-form input[type="text"],
+        .account-form input[type="email"],
+        .account-form input[type="tel"],
+        .account-form input[type="password"] {
+            width: 95%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ffcccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .account-form button {
+            padding: 8px 18px;
+            background: linear-gradient(to right, #ff4d4d, #ffcccc);
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 5px;
+        }
+        .account-form button:hover {
+            background: linear-gradient(to right, #ff0000, #ffcccc);
+        }
+    </style>
+</head>
+<body>
+    <div class="account-container">
+        <h2>Account Information</h2>
+        <form class="account-form" id="update-name-form" method="POST" action="/account/update-name" autocomplete="off">
+            <label for="name">Full Name:</label>
+            <input type="text" id="name" name="name" value="<%= user?.name || '' %>" required>
+            <button type="submit">Update Name</button>
+        </form>
+        <form class="account-form" id="update-email-form" method="POST" action="/account/update-email" autocomplete="off">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" value="<%= user?.email || '' %>" required>
+            <button type="submit">Update Email</button>
+        </form>
+        <form class="account-form" id="update-phone-form" method="POST" action="/account/update-phone" autocomplete="off">
+            <label for="phone">Phone Number:</label>
+            <input type="tel" id="phone" name="phone" value="<%= user?.phone || '' %>" required>
+            <button type="submit">Update Phone</button>
+        </form>
+        <form class="account-form" id="update-address-form" method="POST" action="/account/update-address" autocomplete="off">
+            <label for="address">Delivery Address:</label>
+            <input type="text" id="address" name="address" value="<%= user?.address || '' %>" required>
+            <button type="submit">Update Address</button>
+        </form>
+        <form class="account-form" id="update-password-form" method="POST" action="/account/update-password" autocomplete="off">
+            <label for="password">New Password:</label>
+            <input type="password" id="password" name="password" placeholder="Enter new password">
+            <button type="submit">Update Password</button>
+        </form>
+    </div>
